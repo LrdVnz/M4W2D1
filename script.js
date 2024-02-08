@@ -6,6 +6,7 @@ let searchButton = document.getElementById("search-btn");
 searchButton.addEventListener("click", (event) => {
   let searchInput = document.getElementById("search-img");
   let searchValue = searchInput.value;
+  console.log(searchValue)
   loadImages(searchValue);
 });
 
@@ -17,17 +18,16 @@ function loadImages(value) {
   })
     .then((response) => response.json())
     .then((data) => {
-      imageList.innerHTML = '';
-      for (let i = 0; i < data.photos.length ; i++) {
+      imageList.innerHTML = "";
+      data.photos.forEach((element, i) => {
         createCard(data, i);
-      }
+      });
     });
 }
 
-function createCard(data, i){
-  console.log(data.photos[i])
+function createCard(data, i) {
   imageList.innerHTML += ` 
-  <div class='col-3'> 
+  <div class='col-6 col-md-3'> 
   <div class="card overflow-hidden" id="card-original">
   <img src="${data.photos[i].src.tiny}" class="card-img-top" alt="${data.photos[i].alt}">
   <div class="card-body">
@@ -35,5 +35,5 @@ function createCard(data, i){
   </div>
   </div>
   </div>
-   `
+   `;
 }
